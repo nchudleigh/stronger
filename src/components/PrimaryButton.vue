@@ -6,9 +6,9 @@
       rounded-md
       font-semibold
       text-white
-      bg-green-500
+      bg-blue-500
       focus:outline-none
-      focus:ring-4 focus:ring-green-700
+      focus:ring-4 focus:ring-blue-700
     "
     @click="handleClick"
   >
