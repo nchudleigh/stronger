@@ -1,12 +1,17 @@
 <template>
-  <div class="mt-4 w-96 mx-auto">
-    <div v-for="set in workSets" :key="set.id" class="mt-4">
-      <BaseInput placeholderText="Overhead Press @ 95lb x 5" />
+  <div class="mt-4 w-full sm:w-96 p-2 mx-auto">
+    <div v-for="(workSet, index) in workSets" :key="workSet.id" class="mt-4">
+      <BaseInput
+        :ref="`workSet${workSet.id}`"
+        placeholderText="Overhead Press @ 95lb x 5reps"
+        @keyup.enter="addWorkSet"
+        @keyup.backspace="removeWorkSet(index)"
+      />
     </div>
     <PrimaryButton
       class="mt-4"
-      buttonText="Add a work set"
-      @buttonClick="handleAddWorkSet"
+      buttonText="ADD WORK SET"
+      @buttonClick="addWorkSet"
     />
   </div>
 </template>
@@ -29,14 +34,24 @@ export default defineComponent({
     PrimaryButton,
   },
   methods: {
-    handleAddWorkSet() {
+    addWorkSet(index) {
       const newWorkSet: WorkSet = {
         id: generateID(),
       };
 
-      this.workSets.push(newWorkSet);
-      console.log();
+      this.workSets.splice(index, 0, newWorkSet);
     },
+    removeWorkSet(index: Number) {
+      // remove the backspaced list item
+      this.workSets.splice(index, 1);
+      // get the ID of the new focus target
+      const focusTargetID = this.workSets[index - 1].id;
+      // focus preceding list item
+      this.$refs[`workSet${focusTargetID}`].$el.focus();
+    },
+  },
+  created() {
+    this.addWorkSet(0);
   },
   setup() {
     const workSets = ref<Array<WorkSet>>([]);
