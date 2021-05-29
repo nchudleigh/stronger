@@ -1,42 +1,41 @@
 type WeightUnit = "lb" | "kg";
 
 type WorkSet = {
-  timestamp: String;
-  exerciseName: String;
+  timestamp: string;
+  exerciseName: string;
 
-  notes?: String;
+  notes?: string;
 
-  setOrder?: Number;
+  setOrder?: number;
 
-  weight?: Number;
-  weight_unit?: "kg" | "lb";
+  weight?: number;
+  weightUnit?: WeightUnit;
 
-  reps_count?: Number;
+  reps_count?: number;
 
-  distance?: Number;
+  distance?: number;
   distance_unit?: "km" | "mi";
 
-  duration_ms?: Number;
+  duration_ms?: number;
 };
 
-function interpretWorkSetInput(input: String): WorkSet[] {
-  console.log(input);
-
-  const [exerciseName, workSets] = input.split(" for ");
+// [exerciseName] for? [setsDefn] at [weightDefn]
+function main(input: string): WorkSet[] {
+  const { exerciseName, setsDefn, weightDefn } = parseInput(input);
 
   const baseWorkSet: WorkSet = {
     timestamp: new Date().toUTCString(),
     exerciseName,
   };
 
-  const [setCountStr, weightStr] = workSets.split(" at ");
-  const setCountNum = Number(setCountStr.split(" sets")[0]);
+  // TODO handle undefined sets
+  const setCount = parseSets(setsDefn);
 
-  const { weights, weightUnit } = parseWeight(weightStr);
+  const { weights, weightUnit } = parseWeight(weightDefn);
 
   const result = [];
 
-  for (let index = 0; index < setCountNum; index++) {
+  for (let index = 0; index < setCount; index++) {
     const weight = weights[index] || weights[weights.length - 1];
     result.push({
       ...baseWorkSet,
@@ -47,6 +46,34 @@ function interpretWorkSetInput(input: String): WorkSet[] {
   }
 
   return result;
+}
+
+function parseInput(
+  input: string,
+): { exerciseName: string; setsDefn: string; weightDefn: string } {
+  let exerciseName = "", setsDefn = "", weightDefn = "";
+
+  const inputParts = input.split(" ");
+
+  const atIndex = inputParts.indexOf("at");
+  let forIndex = inputParts.indexOf("for");
+  forIndex = forIndex == -1 ? 0 : forIndex;
+
+  exerciseName = inputParts.slice(0, forIndex || atIndex).join(" ");
+  if (forIndex) {
+    setsDefn = inputParts.slice(forIndex + 1, atIndex).join(" ");
+  }
+  weightDefn = inputParts.slice(atIndex + 1).join(" ");
+
+  return { exerciseName, setsDefn, weightDefn };
+}
+
+function parseSets(setsDefn: string): Number {
+  const matches = /(\d+)[ ]*(sets)?/.exec(setsDefn);
+
+  if (matches == null) return 1;
+
+  return Number(matches[1]);
 }
 
 function parseWeight(
@@ -65,6 +92,8 @@ function parseWeight(
   return { weights, weightUnit };
 }
 
-console.log(interpretWorkSetInput("Bench Press for 5 sets at 185lb"));
-console.log(interpretWorkSetInput("Bench Press for 3 sets at 135,185lb"));
-console.log(interpretWorkSetInput("Bench Press for 5 sets at 135,155,185lb"));
+console.log(main("Bench Press for 5 sets at 185lb"));
+console.log(main("Bench Press at 185lb"));
+console.log(main("Bench Press for 3 sets at 135,185lb"));
+console.log(main("Bench Press for 5 sets at 135,155,185lb"));
+console.log(main("Bench Press at 135,155,185lb"));
