@@ -81,7 +81,7 @@ function parseWeight(
   weightString: string,
 ): { weights: number[]; weightUnit: WeightUnit } {
   var weightUnit: WeightUnit = "lb";
-  const weightRegex = /([\d, ]+)(lb|kg)/;
+  const weightRegex = /([\d, ]+)(lb|kg)?/;
   const matches = weightRegex.exec(weightString);
 
   if (matches == null) return { weights: [0], weightUnit };
@@ -98,3 +98,5 @@ console.log(main("Bench Press at 185lb"));
 console.log(main("Bench Press for 3 sets at 135,185lb"));
 console.log(main("Bench Press for 5 sets at 135,155,185lb"));
 console.log(main("Bench Press at 135,155,185lb"));
+console.log(main("Bench Press at 135,155,185kg"));
+console.log(main("Bench Press at 135,155,185"));
