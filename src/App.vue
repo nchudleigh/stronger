@@ -2,10 +2,10 @@
   <div class="mt-4 w-full sm:w-96 p-2 mx-auto">
     <div v-for="(workSet, index) in workSets" :key="workSet.id" class="mt-4">
       <BaseInput
-        :ref="`workSet${workSet.id}`"
+        :ref="formatWorkSetRef(workSet.id)"
         placeholderText="Overhead Press @ 95lb x 5reps"
-        @keyup.enter="addWorkSet"
-        @keyup.backspace="removeWorkSet(index)"
+        @keyup.enter="addWorkSet(index)"
+        @keyup.backspace="removeWorkSet(workSet.id)"
       />
     </div>
     <PrimaryButton
@@ -41,13 +41,36 @@ export default defineComponent({
 
       this.workSets.splice(index, 0, newWorkSet);
     },
-    removeWorkSet(index: Number) {
+    getWorkSetByIndex() {
+      // get the ID of the new focus target
+      return this.workSets[index];
+    },
+    getWorkSetById(id: String): WorkSet | undefined {
+      // get the ID of the new focus target
+      return this.workSets.find((workSet) => workSet.id == id);
+    },
+    getWorkSetIndexById(id: String): WorkSet | undefined {
+      // get the ID of the new focus target
+      return this.workSets.map((workSet) => workSet.id);
+    },
+    formatWorkSetRef(id: String) {
+      return `workSet${id}`;
+    },
+    removeWorkSet(id: String) {
+      const workSet = this.getWorkSetById(id);
+      if (workSet == null) return;
+
+      const focusTargetRef = this.formatWorkSetRef(workSet.id);
+      // focus preceding list item
+      const focusTargetComponent = this.$refs[focusTargetRef];
+      if (focusTargetComponent == null) return;
+
       // remove the backspaced list item
       this.workSets.splice(index, 1);
-      // get the ID of the new focus target
-      const focusTargetID = this.workSets[index - 1].id;
-      // focus preceding list item
-      this.$refs[`workSet${focusTargetID}`].$el.focus();
+
+      if (focusTargetComponent.$el) {
+        focusTargetComponent.$el.focus();
+      }
     },
   },
   created() {
