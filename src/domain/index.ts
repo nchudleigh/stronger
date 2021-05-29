@@ -28,12 +28,13 @@ function main(input: string): WorkSet[] {
     exerciseName,
   };
 
-  // TODO handle undefined sets
-  const setCount = parseSets(setsDefn);
+  let setCount = parseSets(setsDefn);
 
   const { weights, weightUnit } = parseWeight(weightDefn);
 
   const result = [];
+
+  if (setCount == undefined) setCount = weights.length;
 
   for (let index = 0; index < setCount; index++) {
     const weight = weights[index] || weights[weights.length - 1];
@@ -68,10 +69,10 @@ function parseInput(
   return { exerciseName, setsDefn, weightDefn };
 }
 
-function parseSets(setsDefn: string): Number {
+function parseSets(setsDefn: string): Number | null {
   const matches = /(\d+)[ ]*(sets)?/.exec(setsDefn);
 
-  if (matches == null) return 1;
+  if (matches == null) return null;
 
   return Number(matches[1]);
 }
