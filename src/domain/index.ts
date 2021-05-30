@@ -20,8 +20,8 @@ type WorkSet = {
 };
 
 // [exerciseName] for? [setsDefn] at [weightDefn]
-function main(input: string): WorkSet[] {
-  const { exerciseName, setsDefn, weightDefn } = parseInput(input);
+export function parseExercise(input: string): WorkSet[] {
+  const { exerciseName, setsDefn, weightDefn } = parseParts(input);
 
   const baseWorkSet: WorkSet = {
     timestamp: new Date().toUTCString(),
@@ -49,7 +49,7 @@ function main(input: string): WorkSet[] {
   return result;
 }
 
-function parseInput(
+function parseParts(
   input: string,
 ): { exerciseName: string; setsDefn: string; weightDefn: string } {
   let exerciseName = "", setsDefn = "", weightDefn = "";
@@ -92,11 +92,3 @@ function parseWeight(
 
   return { weights, weightUnit };
 }
-
-console.log(main("Bench Press for 5 sets at 185lb"));
-console.log(main("Bench Press at 185lb"));
-console.log(main("Bench Press for 3 sets at 135,185lb"));
-console.log(main("Bench Press for 5 sets at 135,155,185lb"));
-console.log(main("Bench Press at 135,155,185lb"));
-console.log(main("Bench Press at 135,155,185kg"));
-console.log(main("Bench Press at 135,155,185"));

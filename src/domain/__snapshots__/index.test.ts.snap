@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Common 5 set 1`] = `
+Array [
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 1,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 185,
+    "weightUnit": "lb",
+  },
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 2,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 185,
+    "weightUnit": "lb",
+  },
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 3,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 185,
+    "weightUnit": "lb",
+  },
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 4,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 185,
+    "weightUnit": "lb",
+  },
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 5,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 185,
+    "weightUnit": "lb",
+  },
+]
+`;
+
+exports[`Single set 1`] = `
+Array [
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 1,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 185,
+    "weightUnit": "lb",
+  },
+]
+`;
+
+exports[`Warm up set comma separated 1`] = `
+Array [
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 1,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 135,
+    "weightUnit": "lb",
+  },
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 2,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 185,
+    "weightUnit": "lb",
+  },
+]
+`;
+
+exports[`Warm up set comma separated with greater set count 1`] = `
+Array [
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 1,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 135,
+    "weightUnit": "lb",
+  },
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 2,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 185,
+    "weightUnit": "lb",
+  },
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 3,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 185,
+    "weightUnit": "lb",
+  },
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 4,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 185,
+    "weightUnit": "lb",
+  },
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 5,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 185,
+    "weightUnit": "lb",
+  },
+]
+`;
+
+exports[`Warm up set space separated 1`] = `
+Array [
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 1,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 135,
+    "weightUnit": "lb",
+  },
+  Object {
+    "exerciseName": "Bench Press",
+    "setOrder": 2,
+    "timestamp": "Sat, 29 May 2021 23:36:37 GMT",
+    "weight": 185,
+    "weightUnit": "lb",
+  },
+]
+`;
