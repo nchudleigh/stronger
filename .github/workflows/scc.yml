@@ -12,3 +12,5 @@ jobs:
         uses: iryanbell/scc-docker-action@v1.0.2
         with:
           args: ${{ env.workspace }} -i js,html,css
+          output: |
+          {"summary":${{ steps.scc.outputs.scc }}}
