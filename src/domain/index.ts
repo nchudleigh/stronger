@@ -49,10 +49,14 @@ export function parseExercise(input: string): WorkSet[] {
   return result;
 }
 
-function parseParts(
-  input: string,
-): { exerciseName: string; setsDefn: string; weightDefn: string } {
-  let exerciseName = "", setsDefn = "", weightDefn = "";
+function parseParts(input: string): {
+  exerciseName: string;
+  setsDefn: string;
+  weightDefn: string;
+} {
+  let exerciseName = "",
+    setsDefn = "",
+    weightDefn = "";
 
   const inputParts = input.split(" ");
 
@@ -77,9 +81,10 @@ function parseSets(setsDefn: string): Number | null {
   return Number(matches[1]);
 }
 
-function parseWeight(
-  weightString: string,
-): { weights: number[]; weightUnit: WeightUnit } {
+function parseWeight(weightString: string): {
+  weights: number[];
+  weightUnit: WeightUnit;
+} {
   var weightUnit: WeightUnit = "lb";
   const weightRegex = /([\d, ]+)(lb|kg)?/;
   const matches = weightRegex.exec(weightString);
