@@ -76,7 +76,7 @@ function parseParts(input: string): {
 function parseSets(setsDefn: string): Number | null {
   const matches = /(\d+)[ ]*(sets)?/.exec(setsDefn);
 
-  if (matches == null) return null;
+  if (matches === null) return null;
 
   return Number(matches[1]);
 }
@@ -89,7 +89,7 @@ function parseWeight(weightString: string): {
   const weightRegex = /([\d, ]+)(lb|kg)?/;
   const matches = weightRegex.exec(weightString);
 
-  if (matches == null) return { weights: [0], weightUnit };
+  if (matches === null) return { weights: [0], weightUnit };
 
   const weights = matches[1].split(/[, ]/).map((val) => Number(val));
 

@@ -58,12 +58,12 @@ export default defineComponent({
     },
     removeWorkSet(id: String) {
       const workSet = this.getWorkSetById(id);
-      if (workSet == null) return;
+      if (workSet === null) return;
 
       const focusTargetRef = this.formatWorkSetRef(workSet.id);
       // focus preceding list item
       const focusTargetComponent = this.$refs[focusTargetRef];
-      if (focusTargetComponent == null) return;
+      if (focusTargetComponent === null) return;
 
       // remove the backspaced list item
       this.workSets.splice(index, 1);
