@@ -18,8 +18,10 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   name: "BaseInput",
+  inheritAttrs: false,
   props: {
     placeholderText: String,
+    value: String,
   },
 });
 </script>
