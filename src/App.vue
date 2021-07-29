@@ -3,8 +3,16 @@
     <BaseInput
       placeholderText="e.g. Bench Press for 5 sets at 135lb"
       :value="exerciseInput"
-      @input="handleExerciseInputChange()"
+      @input="handleExerciseInputChange"
     />
+  </div>
+
+  <div
+    v-for="workSet in workSets"
+    :key="workSet.exerciseName + workSet.setOrder"
+  >
+    {{ workSet.setOrder }} {{ workSet.exerciseName }} at
+    {{ workSet.weight }}
   </div>
 </template>
 
@@ -23,37 +31,24 @@ export default defineComponent({
   },
   computed: {},
   methods: {
-    handleExerciseInputChange() {
-      this.exerciseInput = this.workSets = parseExercise(this.exerciseInput);
-      console.log(this.workSets);
+    handleExerciseInputChange(event: Event) {
+      if (event !== null) {
+        // Need to recast here as TypeScript does not recognize target as HTMLInputElement
+        const target = <HTMLInputElement>event.target;
+        this.exerciseInput = target?.value;
+      }
+      this.workSets = parseExercise(this.exerciseInput);
     },
     formatWorkSetRef(id: String) {
       return `workSet${id}`;
     },
-    removeWorkSet(id: String) {
-      const workSet = this.getWorkSetById(id);
-      if (workSet === null) return;
-
-      const focusTargetRef = this.formatWorkSetRef(workSet.id);
-      // focus preceding list item
-      const focusTargetComponent = this.$refs[focusTargetRef];
-      if (focusTargetComponent === null) return;
-
-      // remove the backspaced list item
-      this.workSets.splice(index, 1);
-
-      if (focusTargetComponent.$el) {
-        focusTargetComponent.$el.focus();
-      }
-    },
   },
   created() {
-    this.addWorkSet(0);
+    this.handleExerciseInputChange(null);
   },
-  created() {},
   setup() {
     const workSets = ref<Array<WorkSet>>([]);
-    const exerciseInput = ref("Bench Press at 185lb");
+    const exerciseInput = ref("Bench press for 5 sets at 135 lb");
 
     return {
       workSets,
