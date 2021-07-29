@@ -106,9 +106,10 @@ function parseWeight(weightString: string): {
   if (matches === null) return { weights: [0], weightUnit };
 
   // Split the matches out on space or comma, filter empty values and cast to a string
-  const weights = matches[1].split(/[, ]/).filter((val) => val !== "").map((
-    val,
-  ) => Number(val));
+  const weights = matches[1]
+    .split(/[, ]/)
+    .filter((val) => val !== "")
+    .map((val) => Number(val));
 
   return { weights, weightUnit };
 }
