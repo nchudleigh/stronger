@@ -1,6 +1,6 @@
 type WeightUnit = "lb" | "kg";
 
-type WorkSet = {
+export type WorkSet = {
   timestamp: string;
   exerciseName: string;
 
@@ -86,14 +86,29 @@ function parseWeight(weightString: string): {
   weightUnit: WeightUnit;
 } {
   var weightUnit: WeightUnit = "lb";
-  const weightRegex = /([\d, ]+)(lb|kg)?/;
+
+  // Match against the possible types of weight units, set the value to one if found
+  const weightUnitRegex = /(lb|kg)/;
+  const weightUnitMatches = weightUnitRegex.exec(weightString);
+  if (
+    weightUnitMatches !== null &&
+    (weightUnitMatches[1] === "lb" || weightUnitMatches[1] === "kg")
+  ) {
+    weightUnit = weightUnitMatches[1];
+  }
+  // Remove weight unit from the original string if any is found
+  weightString = weightString.replace(weightUnitRegex, "");
+
+  // Match for any space or comma separated numbers
+  const weightRegex = /([\d, ]+)/;
   const matches = weightRegex.exec(weightString);
 
   if (matches === null) return { weights: [0], weightUnit };
 
-  const weights = matches[1].split(/[, ]/).map((val) => Number(val));
-
-  weightUnit = matches[2] == "kg" ? "kg" : "lb";
+  // Split the matches out on space or comma, filter empty values and cast to a string
+  const weights = matches[1].split(/[, ]/).filter((val) => val !== "").map((
+    val,
+  ) => Number(val));
 
   return { weights, weightUnit };
 }

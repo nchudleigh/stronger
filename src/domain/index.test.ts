@@ -3,18 +3,18 @@ import { parseExercise } from "./index";
 
 const timeFreeze = mockDate(new Date("Sat, 29 May 2021 23:36:37 GMT"));
 // Exercise name
-test("Name including at", () => {
+test("Exercise name including at", () => {
   const result = parseExercise("Lat Pulldown at 185lb");
   expect(result[0].exerciseName).toEqual("Lat Pulldown");
 });
 
-test("Name including for", () => {
+test("Exercise name including for", () => {
   const result = parseExercise("Thrust forest at 185lb");
   expect(result[0].exerciseName).toEqual("Thrust forest");
 });
 
 // Set Input
-test("Single set", () => {
+test("Single set with weight", () => {
   const result = parseExercise("Bench Press at 185lb");
   expect(result).toMatchSnapshot();
 });
@@ -25,6 +25,11 @@ test("Common 5 set", () => {
 });
 
 // Weight Input
+test("Space between weight and unit", () => {
+  const result = parseExercise("Bench Press at 137 lb");
+  expect(result.length).toEqual(1);
+});
+
 test("Warm up set comma separated", () => {
   const result = parseExercise("Bench Press at 135,185lb");
   expect(result).toMatchSnapshot();
