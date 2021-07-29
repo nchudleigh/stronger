@@ -7,8 +7,7 @@
       bg-gray-100
       border-2 border-gray-200
       rounded
-      focus:outline-none
-      focus:ring-2 focus:ring-blue-300
+      focus:outline-none focus:ring-2 focus:ring-blue-300
     "
     :placeholder="placeholderText"
   />
@@ -18,7 +17,7 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   name: "BaseInput",
-  inheritAttrs: false,
+  inheritAttrs: true,
   props: {
     placeholderText: String,
     value: String,
